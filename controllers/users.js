@@ -3,6 +3,7 @@ const user = require('../models/users');
 module.exports = {
 	getUser(req, res, next){
 		user.find({})
+			.populate('image')
 			.then(user => {
 				res.send(user);
 			})
@@ -18,6 +19,7 @@ module.exports = {
 		const userId = req.params.id;
 		const userProps = req.body;
 		user.findByIdAndUpdate({ _id: userId }, userProps, { new: true })
+			.populate('image')
 			.then(user => res.send(user))
 			.catch(next);
 	},
@@ -30,6 +32,7 @@ module.exports = {
 	getUserById(req, res, next){
 		const userId = req.params.id;
 		user.findById(userId)
+			.populate('image')
 			.then(user => {
 				res.send(user);
 			})
